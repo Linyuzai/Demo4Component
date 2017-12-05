@@ -29,7 +29,7 @@ class BottomBar private constructor(context: Context) : LinearLayout(context) {
     private val redTips: MutableList<TextView> = arrayListOf()
 
     class Item {
-        internal var index: Int = -1
+        var index: Int = -1
         internal var text: String? = null
         internal var iconDefault: Drawable? = null
         internal var iconSelected: Drawable? = null
