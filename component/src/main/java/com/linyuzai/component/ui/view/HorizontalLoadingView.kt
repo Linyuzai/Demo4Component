@@ -68,7 +68,6 @@ class HorizontalLoadingView(context: Context) : View(context) {
         postDelayed({
             if (progress == max + 1)
                 return@postDelayed
-            Log.d("autoIncrease", progress.toString())
             update(progress)
             progress++
             autoIncrease(time)
