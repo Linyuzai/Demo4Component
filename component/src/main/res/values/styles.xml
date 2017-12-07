@@ -10,4 +10,8 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+    <style name="anim_menu">
+        <item name="android:windowEnterAnimation">@anim/menu_from_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/menu_from_bottom_out</item>
+    </style>
 </resources>
