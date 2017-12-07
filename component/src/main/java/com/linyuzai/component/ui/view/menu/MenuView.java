@@ -36,6 +36,10 @@ public class MenuView extends PopupWindow {
         showAtLocation(view, Gravity.BOTTOM, 0, 0);
     }
 
+    public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
+        ((MenuAdapter) (((MenuContent) getContentView()).getAdapter())).setOnMenuItemClickListener(listener);
+    }
+
     public static class Menu {
         private String text;
         private int textColor;
@@ -198,7 +202,8 @@ public class MenuView extends PopupWindow {
                 menu.extraHeight = (menu.extraHeight == EXTRA_HEIGHT_DEFAULT ? (menuExtraHeight == EXTRA_HEIGHT_DEFAULT ? EXTRA_HEIGHT_DEFAULT : menuExtraHeight) : menu.extraHeight);
                 menus.add(menu);
             }
-            menuContent.setAdapter(new MenuAdapter(menus, divider));
+            MenuAdapter adapter = new MenuAdapter(menus, divider);
+            menuContent.setAdapter(adapter);
             return new MenuView(menuContent);
         }
 
@@ -297,6 +302,10 @@ public class MenuView extends PopupWindow {
             return this;
         }
 
+        public Builder addMenu(String menuName) {
+            return addMenu(menuName, null);
+        }
+
         public Builder addMenu(String menuName, OnMenuItemClickListener listener) {
             Menu menu = new Menu(menuName, listener);
             addMenu(menu);
@@ -333,15 +342,15 @@ public class MenuView extends PopupWindow {
     }
 
     public interface OnMenuItemClickListener {
-        void onMenuItemClick();
+        void onMenuItemClick(Menu menu);
     }
 
-    static class MenuAdapter extends MenuContent.Adapter {
-
+    private static class MenuAdapter extends MenuContent.Adapter {
+        private OnMenuItemClickListener listener;
         private List<Menu> menus;
         private Divider divider;
 
-        public MenuAdapter(List<Menu> menus, Divider divider) {
+        MenuAdapter(List<Menu> menus, Divider divider) {
             this.menus = menus;
             this.divider = divider;
         }
@@ -372,8 +381,10 @@ public class MenuView extends PopupWindow {
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (listener != null)
+                            listener.onMenuItemClick(menu);
                         if (menu.listener != null)
-                            menu.listener.onMenuItemClick();
+                            menu.listener.onMenuItemClick(menu);
                     }
                 });
                 return textView;
@@ -388,6 +399,10 @@ public class MenuView extends PopupWindow {
         @Override
         protected long getItemId(int position) {
             return 0;
+        }
+
+        void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
+            this.listener = listener;
         }
     }
 }
