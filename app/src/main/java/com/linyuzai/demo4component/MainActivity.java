@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.bettershine.landscape2.common.view.LoadingDialog;
 import com.linyuzai.component.ui.view.HorizontalLoadingView;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,5 +23,6 @@ public class MainActivity extends AppCompatActivity {
         horizontalLoadingView.setColor(Color.LTGRAY);
         horizontalLoadingView.setMax(10);
         horizontalLoadingView.autoIncrease(0);
+        new LoadingDialog.Builder(this).setShowMessage(false).create().show();
     }
 }
