@@ -44,7 +44,11 @@ class HorizontalLoadingView(context: Context) : View(context) {
     }
 
     fun update(progress: Int) {
-        isAuto = false
+        update(progress, false)
+    }
+
+    fun update(progress: Int, isAuto: Boolean) {
+        this.isAuto = isAuto
         this.progress = progress
         invalidate()
     }
@@ -77,7 +81,7 @@ class HorizontalLoadingView(context: Context) : View(context) {
         postDelayed({
             if (progress == max + 1)
                 return@postDelayed
-            update(progress)
+            update(progress, true)
             progress++
             autoPost(delay)
         }, delay)
