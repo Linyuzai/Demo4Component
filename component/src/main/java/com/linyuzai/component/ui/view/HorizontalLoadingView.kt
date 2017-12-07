@@ -20,6 +20,8 @@ class HorizontalLoadingView(context: Context) : View(context) {
     private var max: Int = 100
     private var isAuto: Boolean = true
     private var onFinishListener: (() -> Unit)? = null
+    private var delay: Long = 0
+    private var runnable: Runnable? = null
 
     init {
         mPaint.isAntiAlias = true
@@ -47,6 +49,7 @@ class HorizontalLoadingView(context: Context) : View(context) {
     }
 
     fun update(progress: Int) {
+        removeCallbacks(runnable)
         update(progress, false)
     }
 
@@ -78,19 +81,14 @@ class HorizontalLoadingView(context: Context) : View(context) {
 
     fun autoIncrease(time: Long) {
         isAuto = true
-        val delay = time / max
-        autoPost(delay)
-    }
-
-    private fun autoPost(delay: Long) {
-        if (!isAuto)
-            return
-        postDelayed({
+        delay = time / max
+        runnable = Runnable {
             if (progress == max + 1)
-                return@postDelayed
+                return@Runnable
             update(progress, true)
             progress++
-            autoPost(delay)
-        }, delay)
+            postDelayed(runnable, delay)
+        }
+        post(runnable)
     }
 }
