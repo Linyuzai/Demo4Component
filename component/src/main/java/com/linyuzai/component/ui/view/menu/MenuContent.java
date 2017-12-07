@@ -50,7 +50,7 @@ class MenuContent extends LinearLayout {
         return adapter;
     }
 
-    public abstract static class Adapter {
+    abstract static class Adapter {
 
         protected abstract int getCount();
 

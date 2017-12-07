@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2016/8/1 0001.
+ *
  * @author linyuzai
  */
 public class MenuView extends PopupWindow {
@@ -33,10 +34,6 @@ public class MenuView extends PopupWindow {
 
     public void showFromBottom(View view) {
         showAtLocation(view, Gravity.BOTTOM, 0, 0);
-    }
-
-    public static Builder Builder() {
-        return new Builder();
     }
 
     public static class Menu {
