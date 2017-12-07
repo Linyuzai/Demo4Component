@@ -3,6 +3,7 @@ package com.linyuzai.component.ui.view.menu;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -40,12 +41,25 @@ public class MenuView extends PopupWindow {
         ((MenuAdapter) (((MenuContent) getContentView()).getAdapter())).setOnMenuItemClickListener(listener);
     }
 
+    public List<Menu> getMenus() {
+        return ((MenuAdapter) (((MenuContent) getContentView()).getAdapter())).getMenus();
+    }
+
+    public List<String> getMenuTitles() {
+        List<String> titles = new ArrayList<>();
+        for (Menu menu : getMenus()) {
+            titles.add(menu.getText());
+        }
+        return titles;
+    }
+
     public static class Menu {
         private String text;
         private int textColor;
         private int textSize;
         private int background;
         private int extraHeight;
+        private Bundle extra;
         private OnMenuItemClickListener listener;
 
         public Menu(String text, OnMenuItemClickListener listener) {
@@ -109,6 +123,14 @@ public class MenuView extends PopupWindow {
 
         public void setListener(OnMenuItemClickListener listener) {
             this.listener = listener;
+        }
+
+        public Bundle getExtra() {
+            return extra;
+        }
+
+        public void setExtra(Bundle extra) {
+            this.extra = extra;
         }
     }
 
@@ -312,6 +334,11 @@ public class MenuView extends PopupWindow {
             return this;
         }
 
+        public Builder addMenus(List<Menu> menus) {
+            this.menus.addAll(menus);
+            return this;
+        }
+
         public Builder removeMenu(Menu menu) {
             menus.remove(menu);
             return this;
@@ -399,6 +426,10 @@ public class MenuView extends PopupWindow {
         @Override
         protected long getItemId(int position) {
             return 0;
+        }
+
+        List<Menu> getMenus() {
+            return menus;
         }
 
         void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
