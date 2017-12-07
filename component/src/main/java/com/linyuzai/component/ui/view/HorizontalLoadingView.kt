@@ -19,6 +19,7 @@ class HorizontalLoadingView(context: Context) : View(context) {
     private var oneLine: Boolean = true
     private var max: Int = 100
     private var isAuto: Boolean = true
+    private var onFinishListener: (() -> Unit)? = null
 
     init {
         mPaint.isAntiAlias = true
@@ -35,6 +36,8 @@ class HorizontalLoadingView(context: Context) : View(context) {
             mPaint.strokeWidth = mHeight / 3f
             canvas?.drawLine((mWidth - mHeight / 2f) * progress / max.toFloat(), mHeight / 2f, mWidth.toFloat() - mHeight / 2f, mHeight / 2f, mPaint)
         }
+        if (progress == max)
+            onFinishListener?.invoke()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -51,6 +54,10 @@ class HorizontalLoadingView(context: Context) : View(context) {
         this.isAuto = isAuto
         this.progress = progress
         invalidate()
+    }
+
+    fun onFinish(listener: (() -> Unit)): HorizontalLoadingView = apply {
+        onFinishListener = listener
     }
 
     fun setColor(color: Int): HorizontalLoadingView = apply {
