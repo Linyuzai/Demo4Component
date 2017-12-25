@@ -1,4 +1,4 @@
-package com.bettershine.landscape2.common.view
+package com.linyuzai.component.ui.view
 
 import android.app.Dialog
 import android.content.Context
@@ -10,6 +10,7 @@ import com.linyuzai.component.R
 
 /**
  * Created by linyuzai on 2017/11/15.
+ * @author linyuzai
  */
 class LoadingDialog : Dialog {
     constructor(context: Context) : super(context)
