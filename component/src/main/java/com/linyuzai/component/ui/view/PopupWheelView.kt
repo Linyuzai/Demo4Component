@@ -71,6 +71,10 @@ class PopupWheelView private constructor(layout: LinearLayout, builder: Builder,
         animationStyle = R.style.popwin_anim_style
     }*/
 
+    fun getSelectItem(): String = wheelPicker!!.data[getSelectItemPosition()] as String
+
+    fun getSelectItemPosition(): Int = wheelPicker?.selectedItemPosition ?: -1
+
     fun updateData(data: List<String>) = updateData(data, 0)
 
     fun updateData(data: List<String>, initialPosition: Int) {
@@ -359,7 +363,7 @@ class PopupWheelView private constructor(layout: LinearLayout, builder: Builder,
             //divider
             val view = View(context)
             view.setBackgroundColor(Color.LTGRAY)
-            linearLayout.addView(view, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1))
+            linearLayout.addView(view, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, context.dip(0.5f)))
             //title
             if (isTitleEnable) {
                 val titleLayout = _RelativeLayout(context).apply {
@@ -376,12 +380,12 @@ class PopupWheelView private constructor(layout: LinearLayout, builder: Builder,
                     }
                     view {
                         backgroundColor = Color.LTGRAY
-                    }.lparams(width = matchParent, height = dip(1)) {
+                    }.lparams(width = matchParent, height = dip(0.5f)) {
                         alignParentTop()
                     }
                     view {
                         backgroundColor = Color.LTGRAY
-                    }.lparams(width = matchParent, height = dip(1)) {
+                    }.lparams(width = matchParent, height = dip(0.5f)) {
                         alignParentBottom()
                     }
                     lparams(width = matchParent, height = titleHeight)
