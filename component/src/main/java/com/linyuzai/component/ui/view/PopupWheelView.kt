@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import com.aigestudio.wheelpicker.IWheelPicker
 import com.aigestudio.wheelpicker.WheelPicker
 import com.linyuzai.component.R
 import com.linyuzai.component.common.addZero
@@ -71,9 +72,9 @@ class PopupWheelView private constructor(layout: LinearLayout, builder: Builder,
         animationStyle = R.style.popwin_anim_style
     }*/
 
-    fun getSelectItem(): String = wheelPicker!!.data[getSelectItemPosition()] as String
+    fun getCurrentItem(): String = wheelPicker!!.data[wheelPicker!!.currentItemPosition] as String
 
-    fun getSelectItemPosition(): Int = wheelPicker?.selectedItemPosition ?: -1
+    fun getWheelView(): IWheelPicker? = wheelPicker
 
     fun updateData(data: List<String>) = updateData(data, 0)
 
