@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 12
-        versionName "1.0.11"
+        versionCode 13
+        versionName "1.1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -42,6 +42,7 @@ dependencies {
     provided 'com.linyuzai:kotlinextension:0.3.4'
     //mvp
     provided 'com.linyuzai:mvp-rx2:0.3.0'
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
 }
 
 apply from: "bintray.gradle"

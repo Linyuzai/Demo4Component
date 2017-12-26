@@ -48,5 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 menuView.showFromBottom(v);
             }
         });
+        LoadingDialog d = new LoadingDialog.Builder(this).setShowMessage(false).create();
+        d.show();
     }
 }
